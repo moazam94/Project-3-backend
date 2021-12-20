@@ -7,12 +7,15 @@ orderController.create = async (req, res) => {
         const order = await models.create({
             userId: req.body.userId,
             address: req.body.address,
+            city: req.body.city,
+            state: req.body.state,
+            zip: req.body.zip,
             cardInfo: req.body.cardInfo 
         })
-        req.body.itemIds.forEach(id => {
+        req.body.userCart.forEach(itemName => {
             const item = await models.item.findOne({
                 where: {
-                    id: id
+                    name: itemName
                 }
             })
             order.addItem(item);
@@ -43,16 +46,11 @@ orderController.showItem = async (req, res) => {
 
 orderController.showOne = async (req, res) => {
     try {
-        const order = await models.order.findOne({
-            include: [{
-                model: models.user,
-                at: {
-                    id: req.params.id
-                }
-            }],
-            where: {id: req.body.orderId}
-        })
-        await res.json({order})
+        const items = await models.order.findOne({
+            
+            where: {id: req.body.id}
+        }).getItems()
+        await res.json({order: items})
     }catch (error) {
         res.status(400).json({error})
     }
@@ -63,7 +61,7 @@ orderController.showAll = async (req, res) => {
         const orders = await models.order.findAll({
             include: [{
                 model: models.user,
-                at: {
+                on: {
                     userId: req.body.userId
                 }
             }]

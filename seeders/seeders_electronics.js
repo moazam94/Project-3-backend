@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     
     
-    return queryInterface.bulkInsert('products', [
+    const items = [
     
     {
       name: 'Apple Watch Series 6',
@@ -86,10 +86,13 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }
-  ]);
+  ];
+
+    await queryInterface.bulkInsert('items', items, {}) 
+
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('products', null, {});
+    await queryInterface.bulkDelete('items', null, {});
   }
 };
