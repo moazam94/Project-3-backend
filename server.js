@@ -1,10 +1,9 @@
-require("dotenv").config();
-const express = require("express");
+const express = require('express');
 const app = express();
 const routesReport = require('rowdy-logger').begin(app);
 const cors = require('cors');
-const { default: App } = require("../Project-3-Solo-frontend/project-3-solo-frontend/src/App");
-const router = express.Router();
+//const { default: App } = require("../Project-3-Solo-frontend/project-3-solo-frontend/src/App");
+
 
 app.use(express.json())
 app.use((cors)())
@@ -20,5 +19,6 @@ app.use('/users', orderRoutes);
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
+    routesReport.print()
     console.log(`server listening on port ${PORT}`)
 })
