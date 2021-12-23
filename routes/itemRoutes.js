@@ -2,9 +2,9 @@ const itemRoutes = require('express').Router()
 const itemController = require('../controllers/itemController')
 
 //all items
-itemRoutes.get('/items', itemController.showAll)
+itemRoutes.get('/', itemController.showAll)
 
 //view specific item details
-itemRoutes.get('/items/:id', itemController.showOne)
+itemRoutes.get('/:id', itemController.showOne)
 
-models.exports = itemRoutes;
+module.exports = itemRoutes;

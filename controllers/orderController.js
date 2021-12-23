@@ -1,4 +1,4 @@
-const { where } = require('sequelize/dist')
+//const { where } = require('sequelize/dist')
 const models = require('../models')
 const orderController = {}
 
@@ -12,7 +12,7 @@ orderController.create = async (req, res) => {
             zip: req.body.zip,
             cardInfo: req.body.cardInfo 
         })
-        req.body.userCart.forEach(itemName => {
+        req.body.userCart.forEach(async (itemName) => {
             const item = await models.item.findOne({
                 where: {
                     name: itemName
@@ -32,19 +32,19 @@ orderController.create = async (req, res) => {
     }
 }
 
-orderController.showItem = async (req, res) => {
-    try {
-        const order = await models.order.findOne({
-            where: {userId: req.body.userId},
-            order: [['createdAt', 'DESC']]
-        })
-        await res.json(order)
-    }catch (error) {
-        res.status(400).json({error})
-    }
-}
+// orderController.showItem = async (req, res) => {
+//     try {
+//         const order = await models.order.findOne({
+//             where: {userId: req.body.userId},
+//             order: [['createdAt', 'DESC']]
+//         })
+//         await res.json(order)
+//     }catch (error) {
+//         res.status(400).json({error})
+//     }
+// }
 
-orderController.showOne = async (req, res) => {
+orderController.getOne = async (req, res) => {
     try {
         const items = await models.order.findOne({
             
@@ -56,7 +56,7 @@ orderController.showOne = async (req, res) => {
     }
 }
 
-orderController.showAll = async (req, res) => {
+orderController.getAll = async (req, res) => {
     try {
         const orders = await models.order.findAll({
             include: [{
