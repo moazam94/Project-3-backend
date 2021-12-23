@@ -31,4 +31,13 @@ userController.login = async (req, res) => {
     }
 }
 
+// userController.logoutUser = async (req, res) => {
+//     try{
+//         // localStorage.removeItem('userId')
+//         res.redirect('/')
+//     }catch (err) {
+//         res.json({err});
+//     }
+// }
+
 module.exports = userController

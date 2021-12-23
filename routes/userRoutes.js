@@ -8,4 +8,7 @@ userRoutes.post('/', userController.create)
 //login to account
 userRoutes.post('/login', userController.login)
 
+//logout user
+// userRoutes.get('/logout', userController.logoutUser);
+
 module.exports = userRoutes;
